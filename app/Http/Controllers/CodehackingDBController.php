@@ -22,72 +22,20 @@ class CodehackingDBController extends Controller
         // return $tables;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($value)
     {
         //
         $records = DB::connection('codehacking')->table($value)->get();
         $columns =  DB::connection('codehacking')->getSchemaBuilder()->getColumnListing($value);
-        return view('databases.codehacking.table_data', compact('columns','records'));
+        return view('databases.codehacking.table_data', compact('columns','records','value'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function records($value,$id)
     {
-        //
+        $value = 'categories';
+        $records = DB::connection('codehacking')->table($value)->where('id', '=', $id)->get();
+        return $records;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

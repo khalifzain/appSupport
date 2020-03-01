@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'MyEG App Support',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -30,7 +30,7 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>App</b>Support',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image-xl',
     'logo_img_xl' => null,
@@ -188,6 +188,13 @@ return [
             'url'         => 'admin/pages',
             'icon'        => 'far fa-fw fa-file',
             'label'       => 4,
+            'label_color' => 'success',
+        ],
+        [
+            'text'        => 'Codehacking',
+            'url'         => 'database/codehacking',
+            'icon'        => 'far fa-fw fa-file',
+            'label'       => 5,
             'label_color' => 'success',
         ],
         ['header' => 'account_settings'],

@@ -15,11 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/test', function (){
-    return view('test');
-});
 
 Route::resource('database/codehacking', 'CodehackingDBController');
+Route::get('database/codehacking/{codehacking}/{id}', 'CodehackingDBController@records');
 
 Auth::routes();
 
