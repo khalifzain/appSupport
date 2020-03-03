@@ -18,6 +18,14 @@ Route::get('/', function () {
 
 Route::resource('database/codehacking', 'CodehackingDBController');
 Route::get('database/codehacking/{codehacking}/{id}', 'CodehackingDBController@records');
+Route::patch('database/codehacking/{codehacking}/{id}/update', 'CodehackingDBController@recordsupdate');
+
+
+Route::resource('database/support', 'SupportDBController');
+Route::get('database/support/{support}/{id}', 'SupportDBController@records');
+Route::patch('database/support/{support}/{id}/update', 'SupportDBController@recordsupdate');
+
+
 
 Auth::routes();
 

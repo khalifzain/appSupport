@@ -20,7 +20,7 @@
                     <td>{{$row ? $row : 'NULL'}}</td>
                 @endforeach
                 <td>
-                    {!! Form::open(['method'=>'get', 'action'=>['CodehackingDBController@records',$value, $record->id]]) !!}
+                    {!! Form::open(['method'=>'get', 'action'=>['SupportDBController@records',$value, $record->id]]) !!}
 
                         <div class="form-group">
                             {!! Form::submit('Edit', ['class'=>'btn btn-info']) !!}

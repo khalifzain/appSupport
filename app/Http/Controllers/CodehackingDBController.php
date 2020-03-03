@@ -31,11 +31,27 @@ class CodehackingDBController extends Controller
         return view('databases.codehacking.table_data', compact('columns','records','value'));
     }
 
-    public function records($value,$id)
+    // public function records($value,$id)
+    // {
+    //     $records = DB::connection('codehacking')->table($value)->where('id', '=', $id)->get();
+    //     $columns =  DB::connection('codehacking')->getSchemaBuilder()->getColumnListing($value);
+    //     return view('databases.codehacking.edit', compact('columns','records','value'));
+    //     // return $records;
+    // }
+
+     public function records($value,$id)
     {
-        $value = 'categories';
-        $records = DB::connection('codehacking')->table($value)->where('id', '=', $id)->get();
-        return $records;
+        $records = DB::connection('codehacking')->table($value)->where('id', '=', $id)->first();
+        $columns =  DB::connection('codehacking')->getSchemaBuilder()->getColumnListing($value);
+        return view('databases.codehacking.edit', compact('columns','records','value'));
+    }
+
+    public function recordsupdate($value)
+    {
+        // $records = DB::connection('codehacking')->table($value)->where('id', '=', $id)->first();
+        // $columns =  DB::connection('codehacking')->getSchemaBuilder()->getColumnListing($value);
+        // return view('databases.codehacking.edit', compact('columns','records','value'));
+        return $request;
     }
 
 }

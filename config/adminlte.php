@@ -183,24 +183,26 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
+        ['header' => 'OPERATIONS'],
         [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
+            'text'    => 'App Database',
+            'icon'    => 'far fa-fw fa-file',
+            'submenu' => [
+                [
+                    'text' => 'Codehacking',
+                    'url'  => 'database/codehacking',
+                ],
+                [
+                    'text' => 'Support',
+                    'url'  => 'database/support',
+                ],
+            ],
         ],
-        [
-            'text'        => 'Codehacking',
-            'url'         => 'database/codehacking',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 5,
-            'label_color' => 'success',
-        ],
-        ['header' => 'account_settings'],
+
+        ['header' => 'ACCOUNT'],
         [
             'text' => 'profile',
-            'url'  => 'admin/settings',
+            'url'  => 'user/edit',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
@@ -246,18 +248,22 @@ return [
                 ],
             ],
         ],
-        ['header' => 'labels'],
+        ['header' => 'labels', 'can'  => 'view-admin-setting'],
         [
             'text'       => 'important',
             'icon_color' => 'red',
+            'can'  => 'view-admin-setting',
+
         ],
         [
             'text'       => 'warning',
             'icon_color' => 'yellow',
+            'can'  => 'view-admin-setting',
         ],
         [
             'text'       => 'information',
             'icon_color' => 'aqua',
+            'can'  => 'view-admin-setting',
         ],
     ],
 
