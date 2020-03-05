@@ -201,8 +201,8 @@ return [
 
         ['header' => 'ACCOUNT'],
         [
-            'text' => 'profile',
-            'url'  => 'user/edit',
+            'text' => 'Your Profile',
+            'url'  => 'profile',
             'icon' => 'fas fa-fw fa-user',
         ],
         [

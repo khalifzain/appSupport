@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'password', 'photo_id'
     ];
 
     /**
@@ -39,5 +39,9 @@ class User extends Authenticatable
     ];
 
     use HasRoles;
+
+    public function photo(){
+        return $this->belongsTo('App\Photo');
+    }
 
 }
