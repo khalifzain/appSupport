@@ -213,6 +213,8 @@ return [
                     'url'  => 'users/create',
                 ],
             ],
+
+            'can'  => 'view-admin-setting',
         ],
 
         ['header' => 'ACCOUNT'],
