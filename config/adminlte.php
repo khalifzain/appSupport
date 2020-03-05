@@ -199,6 +199,22 @@ return [
             ],
         ],
 
+        ['header' => 'ADMIN'],
+        [
+            'text'    => 'Users',
+            'icon'    => 'far fa-fw fa-file',
+            'submenu' => [
+                [
+                    'text' => 'All Users',
+                    'url'  => 'users',
+                ],
+                [
+                    'text' => 'Create Users',
+                    'url'  => 'users/create',
+                ],
+            ],
+        ],
+
         ['header' => 'ACCOUNT'],
         [
             'text' => 'Your Profile',

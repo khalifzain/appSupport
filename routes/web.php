@@ -38,3 +38,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //User Profile//
 Route::resource('profile', 'UserProfileController');
+
+//User Management//
+Route::resource('users', 'UsersController');
