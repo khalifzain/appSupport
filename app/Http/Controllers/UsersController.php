@@ -15,26 +15,44 @@ class UsersController extends Controller
 
     public function index()
     {
-        $users= User::all();
+        $users= User::paginate(15);
         return view('users.index', compact('users'));
     }
 
 
     public function create()
     {
-        //
+        $roles = Role::pluck('name','name')->all();
+        return view('users.create', compact('roles'));
     }
 
 
     public function store(Request $request)
     {
-        //
-    }
+        if(trim($request->password) == '')
+        {
+            $input = $request->except('password');
+        }
 
+        else
+        {
+            $input = $request->all();
+            $input['password'] = bcrypt('password');
+        }
 
-    public function show($id)
-    {
-        //
+        if($path == $request->file('photo_id'))
+        {
+            $name = time() . $path->getClientOriginalName();
+            $path->move('images', $name);
+            $photo = Photo::create(['path'=>$name]);
+            $input['photo_id'] = $photo->id;
+        }
+
+        $user = User::create($input);
+
+        $user->assignRole($request->input('roles'));
+
+        return redirect('/users');
     }
 
 

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
+use Database;
 
-class AdminUserController extends Controller
+class DBAccessController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,7 @@ class AdminUserController extends Controller
      */
     public function index()
     {
-        $users= User::all();
-        return view('users.index', compact('users'));
+        //
     }
 
     /**
@@ -82,5 +81,16 @@ class AdminUserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function db_connect($id)
+    {
+
+    $db = Database::findOrFail($id);
+    $dsn = $db->driver . ':host=' . $db->host . ';' .'dbname=' . $db->connection;
+    $dbuser = $db->username;
+    $dbpass = $db->password;
+    $dbh = new PDO($dsn,$dbuser,$dbpass);
+
     }
 }
