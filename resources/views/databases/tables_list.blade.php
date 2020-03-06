@@ -13,9 +13,9 @@
     <tbody>
         @if($tables)
             @foreach($tables as $table)
-                @foreach($table as $key => $value)
+                @foreach($table as $key => $table_name)
         <tr>
-            <td><a href={{route('support.show', $value)}}>{{$value}}</td>
+            <td><a href={{route('records.list', ['db_name'=>$db_name, 'table_name'=>$table_name])}}>{{$table_name}}</td>
         </tr>
                 @endforeach
             @endforeach

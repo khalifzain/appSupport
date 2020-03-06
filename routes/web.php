@@ -15,19 +15,17 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-//Test Route - Admin//
+// //Test Route - Admin//
 
-Route::group(['middleware'=> ['role:administrator']], function () {
-Route::resource('database/codehacking', 'CodehackingDBController');
-Route::get('database/codehacking/{codehacking}/{id}', 'CodehackingDBController@records');
-Route::patch('database/codehacking/{codehacking}/{id}/update', 'CodehackingDBController@recordsupdate');
-});
-/////////////////////////////
+// Route::group(['middleware'=> ['role:administrator']], function () {
+// Route::resource('database/codehacking', 'CodehackingDBController');
+// Route::get('database/codehacking/{codehacking}/{id}', 'CodehackingDBController@records');
+// Route::patch('database/codehacking/{codehacking}/{id}/update', 'CodehackingDBController@recordsupdate');
 
-//Test Route - DB//
-Route::resource('database/support', 'SupportDBController');
-Route::get('database/support/{support}/{id}', 'SupportDBController@records');
-Route::patch('database/support/{support}/{id}/update', 'SupportDBController@recordsupdate');
+
+Route::get('database/{db_name}', 'DBAccessController@get_tables')->name('tables.list');
+Route::get('database/{db_name}/{table_name}', 'DBAccessController@get_records')->name('records.list');
+Route::get('database/{db_name}/{table_name}/{record_id}', 'DBAccessController@edit_records')->name('records.edit');
 
 ////////////////////////////
 

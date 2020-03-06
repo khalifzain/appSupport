@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Database;
+use App\Database;
+use DB;
 
 class DBAccessController extends Controller
 {
@@ -83,14 +84,45 @@ class DBAccessController extends Controller
         //
     }
 
-    public function db_connect($id)
+    public function db_connect_pdo($id)
     {
 
     $db = Database::findOrFail($id);
     $dsn = $db->driver . ':host=' . $db->host . ';' .'dbname=' . $db->connection;
     $dbuser = $db->username;
     $dbpass = $db->password;
-    $dbh = new PDO($dsn,$dbuser,$dbpass);
+    $connection = new PDO($dsn,$dbuser,$dbpass);
 
     }
+
+    public function table_list_pdo($id, $connection)
+    {
+        $sql = 'SHOW TABLES';
+        $statement = $connection->prepare($sql)->execute();
+        $tables = $statement->fetchAll(PDO::FETCH_NUM);
+    }
+
+    public function get_tables($db_name)
+    {
+        $tables = DB::connection($db_name)->select('show TABLES');
+        return view('databases.tables_list', compact('tables','db_name'));
+    }
+
+    public function get_records($db_name,$table_name)
+    {
+        $records = DB::connection($db_name)->table($table_name)->get();
+        $columns =  DB::connection($db_name)->getSchemaBuilder()->getColumnListing($table_name);
+        return view('databases.records_list', compact('table_name','db_name','columns','records'));
+
+    }
+
+    public function edit_records($db_name,$table_name,$record_id)
+    {
+        $records = DB::connection($db_name)->table($table_name)->get()->toArray();
+        $columns =  DB::connection($db_name)->getSchemaBuilder()->getColumnListing($table_name);
+        return view('databases.records_list', compact('table_name','db_name','columns','records'));
+
+    }
+
+
 }
