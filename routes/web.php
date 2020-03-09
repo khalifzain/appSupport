@@ -39,3 +39,6 @@ Route::resource('profile', 'UserProfileController');
 
 //User Management//
 Route::resource('users', 'UsersController');
+
+Route::resource('tasks', 'TasksController');
+
