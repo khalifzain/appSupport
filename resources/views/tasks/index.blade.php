@@ -58,11 +58,11 @@
             </div>
             <div class="form-group">
                 {!! Form::label('start_time', 'Start Time:') !!}
-                {!! Form::datetime('start_time',\Carbon\Carbon::now()->format('d M Y') ) !!}
+                {!! Form::datetime('start_time',\Carbon\Carbon::now()->format('d-m-Y H:i:s') ) !!}
             </div>
             <div class="form-group">
                 {!! Form::label('start_time', 'Start Time:') !!}
-                {!! Form::datetime('start_time',\Carbon\Carbon::now()->addDays(1)->format('d M Y') ) !!}
+                {!! Form::datetime('start_time',\Carbon\Carbon::now()->addDays(1)->format('d-m-Y H:i:s') ) !!}
             </div>
             <div class="form-group">
                 {!! Form::label('taskscategory_id', 'Category:') !!}
