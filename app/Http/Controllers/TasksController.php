@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Task;
 use App\TasksCategory;
+use Carbon\Carbon;
 
 class TasksController extends Controller
 {
@@ -41,9 +42,9 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        Task::create($request->all());
-        return redirect()->route('tasks.index');
+        return $request;
+        // Task::create($request->all());
+        // return redirect()->route('tasks.index');
     }
 
     /**

@@ -198,6 +198,20 @@ return [
                 ],
             ],
         ],
+        [
+            'text'    => 'Tasks',
+            'icon'    => 'far fa-fw fa-file',
+            'submenu' => [
+                [
+                    'text' => 'View Tasks',
+                    'url'  => 'tasks',
+                ],
+                [
+                    'text' => 'Edit Tasks',
+                    'url'  => 'tasks/edit',
+                ],
+            ],
+        ],
 
         ['header' => 'ADMIN'],
         [
