@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Task;
 use App\TasksCategory;
 use Carbon\Carbon;
+use Datetime;
 
 class TasksController extends Controller
 {
@@ -42,9 +43,12 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
-        // Task::create($request->all());
-        // return redirect()->route('tasks.index');
+        $start_time = new DateTime($request->start_time);
+        $end_time = new DateTime($request->end_time);
+        $request['start_time'] = $start_time->format('Y-m-d H:i:s');
+        $request['end_time'] = $end_time->format('Y-m-d H:i:s');
+        Task::create($request->all());
+        return redirect()->route('tasks.index');
     }
 
     /**

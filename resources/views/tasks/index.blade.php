@@ -4,6 +4,14 @@
 
     <h1>Tasks</h1>
 
+
+    {{-- {{var_dump($tasks->pluck('taskscategory_id')->toArray())}} --}}
+    {{var_dump($tasksCategories)}}
+    {{var_dump($tasks->pluck('taskscategory_id')->toArray())}}
+    {{var_dump(in_array(implode(array_keys($tasksCategories, 'Meeting')), $tasks->pluck('taskscategory_id')->toArray()))}}
+    {{var_dump(implode(array_keys($tasksCategories, 'Meeting')))}}
+    {{var_dump(in_array(implode(array_keys($tasksCategories, 'Meeting')), $tasks->pluck('taskscategory_id')->toArray()) or in_array(implode(array_keys($tasksCategories, 'Events')), $tasks->pluck('taskscategory_id')->toArray()))}}
+
 @stop
 
 @section('content')
@@ -16,34 +24,45 @@
             </div>
 
             <h5>Meetings</h5>
+            @if(in_array(array_keys($tasksCategories, 'Meeting',''), $tasks->pluck('taskscategory_id')->toArray()) or in_array(array_keys($tasksCategories, 'Events'), $tasks->pluck('taskscategory_id')->toArray()) )
+                @foreach($tasks as $task)
+                    @if($task->tasksCategory()->name == 'Meeting' or $task->tasksCategory()->name == 'Events')
+                        @if($task->start_time <= Carbon\Carbon::now() and $task->start_time >= Carbon\Carbon::now()->subDays(3) )
+                            @if($task->end_time >= Carbon\Carbon::now())
+                                <p class="container p-3 my-3 bg-danger text-white">&bull; &#8194; {{ $task->name }}</p>
+                            @endif
+                        @endif
+                    @endif
+                @endforeach
+             @else
+                <p class="container p-3 my-3 bg-danger text-white">&bull; &#8194; NONE</p>
+             @endif
 
-            @foreach($tasks as $task)
-
-                @if($task->tasksCategory->name == 'Meeting' or $task->tasksCategory->name == 'Event')
-                    <p class="container p-3 my-3 bg-danger text-white">&bull; &#8194; {{ $task->name }}</p>
-                @endif
-
-            @endforeach
-
-            <h5>Tasks</h5>
-
-            @foreach($tasks as $task)
-
-                @if($task->tasksCategory->name == 'To-Do')
-                    <p class="container p-3 my-3 bg-success text-white">&bull; &#8194; {{ $task->name }}</p>
-                @endif
-
-            @endforeach
+            <h5>To-Do</h5>
+            @if(in_array(array_keys($tasksCategories, 'To-Do'), $tasks->pluck('taskscategory_id')->toArray()))
+                @foreach($tasks as $task)
+                    @if($task->tasksCategory()->name == 'To-Do')
+                        @if($task->start_time <= Carbon\Carbon::now() and $task->start_time >= Carbon\Carbon::now()->subDays(3) )
+                            @if($task->end_time >= Carbon\Carbon::now())
+                                <p class="container p-3 my-3 bg-success text-white">&bull; &#8194; {{ $task->name }}</p>
+                            @endif
+                        @endif
+                    @endif
+                @endforeach
+            @else
+                <p class="container p-3 my-3 bg-success text-white">&bull; &#8194; NONE</p>
+            @endif
 
             <h5>Unavailable</h5>
-
-            @foreach($tasks as $task)
-
-                @if($task->tasksCategory->name == 'MC' or $task->tasksCategory->name == 'AL')
-                    <p class="container p-3 my-3 bg-primary text-white">&bull; &#8194; {{ $task->name }}</p>
-                @endif
-
-            @endforeach
+            @if(in_array(3, $tasks->pluck('taskscategory_id')->toArray()) or in_array(4, $tasks->pluck('taskscategory_id')->toArray()))
+                @foreach($tasks as $task)
+                    @if($task->taskscategory_id == 3 or $task->taskcategory_id == 4)
+                        <p class="container p-3 my-3 bg-primary text-white">&bull; &#8194; {{ $task->name }}</p>
+                    @endif
+                @endforeach
+            @else
+                <p class="container p-3 my-3 bg-primary text-white">&bull; &#8194; NONE</p>
+            @endif
         </div>
         <div class="container p-3 my-3 border bg-light">
             <h5 class="font-weight-light">Create Task</h5><br>
@@ -58,7 +77,7 @@
             </div>
             <div class="form-group">
                 {!! Form::label('taskscategory_id', 'Category:') !!}
-                {!! Form::select('taskscategory_id', [''=>'Choose one'] +$tasksCategories, null,['class'=>'form-control'] ) !!}
+                {!! Form::select('taskscategory_id', [''=>'Choose one'] +$tasksCategories, 1,['class'=>'form-control'] ) !!}
             </div>
             <div class="form-group">
                 {!! Form::label('start_time', 'Start Time:') !!}<br>
@@ -72,14 +91,14 @@
             <div class="form-group">
                 {!! Form::label('end_time', 'End Time:') !!}<br>
                 <div class="input-group date" id="end_time_picker" data-target-input="nearest">
-                    {!! Form::text('test_time', null, ['class'=>'form-control datetimepicker-input', 'data-target'=>'#end_time_picker']) !!}
+                    {!! Form::text('end_time', null, ['class'=>'form-control datetimepicker-input', 'data-target'=>'#end_time_picker']) !!}
                         <div class="input-group-append" data-target="#end_time_picker" data-toggle="datetimepicker">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
                 </div>
             </div>
             <div class="form-group text-center p-3">
-                {!! Form::submit('Create Task', ['class'=>'btn btn-primary']) !!}
+                {!! Form::submit('Create Task', ['class'=>'btn btn-primary', 'id'=>'submit']) !!}
             </div>
         </div>
     </div>
